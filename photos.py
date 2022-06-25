@@ -6,7 +6,12 @@ import requests
 import os
 root_dir = input("Корневая папка: ")
 street_dir = input("Название уличной папки: ")
-
+try:
+    os.mkdir("images")
+    os.mkdir("images/house")
+    os.mkdir("images/street")
+except WindowsError:
+    pass
 pho = []
 with open("photos_names.txt", mode="rt", encoding="UTF-8") as file:
     lines = file.readlines()
@@ -35,7 +40,6 @@ for i in pho:
             out.close()
             print(i)
     elif i[-1] == "с":
-
         link = f"{root_dir}/{i[:8].strip()}.jpg"
         with requests.session() as session:
             session.headers['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
@@ -45,5 +49,3 @@ for i in pho:
             out.write(im.content)
             out.close()
             print(i)
-
-
